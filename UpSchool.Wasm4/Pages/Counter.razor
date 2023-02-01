@@ -1,12 +1,21 @@
 ﻿@page "/counter"
 
 <PageTitle>Counter</PageTitle>
-
+@*Html kodları*@
 <h1>Counter</h1>
 
+@*true ise ? sonraki kısım, false ise : noktadan sonraki kısım geçerlidir.*@
+<h2 class="@(name.Contains("@") ? "text-success": "text-danger")">@name</h2>
+
+<br/>
+@if(name.Contains("@")==false)
+{    
+    //@'in iki tane olması string olarak bir @ ortaya koymaya çalıştığımızı gösterir.
+     <p>Email field must contain @@ character</p> 
+}
 @if (currentCount % 2 == 0)
 {
-    <p role="status" class="text-primary">Current count is even: @currentCount</p>
+    <p role="status" class="text-danger">Current count is even: @currentCount</p>
 }
 else
 {
@@ -16,9 +25,13 @@ else
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+@*Değişkenler ve hesaplamalar*@
 @code {
     private int currentCount = 0;
-
+    private string name = String.Empty;
+    private string surName = String.Empty;
+    private string lastName = String.Empty;
+   
     private void IncrementCount()
     {
         currentCount++;
